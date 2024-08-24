@@ -40,9 +40,9 @@ int main(int argc, char* argv[]) {
     int semid = semget(key, 1, 0666 | IPC_CREAT);
     struct sembuf lock = {0, -1, 0};
     struct sembuf unlock[2] = {{0, 0, 0}, {0, 1, 0}};
-    union semun ar;
-    ar.val = 1;
-    if (semctl(semid, 0, SETVAL, ar) == -1) {
+    union semun arg;
+    arg.val = 1;
+    if (semctl(semid, 0, SETVAL, arg) == -1) {
         perror("Ошибка создания семафора");
         exit(EXIT_FAILURE);
     }
