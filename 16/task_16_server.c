@@ -77,6 +77,7 @@ void dostuff(int sock, int shared_mem) {
     write(sock, instructions, strlen(instructions));
 
     while (1) {
+    	memset(buff, 0, sizeof(buff));
         bytes_recv = read(sock, &buff[0], sizeof(buff) - 1);
         if (bytes_recv <= 0) break;
 
@@ -103,18 +104,21 @@ void dostuff(int sock, int shared_mem) {
         } else if (strcmp(buff, "operation") == 0) {
             // Отправляем запрос на первый параметр
             write(sock, "Enter 1 parameter\n", 19);
+            memset(buff, 0, sizeof(buff));
             bytes_recv = read(sock, &buff[0], sizeof(buff) - 1);
             if (bytes_recv <= 0) break;
             a = atoi(buff); // первый параметр
 
             // Отправляем запрос на второй параметр
             write(sock, "Enter 2 parameter\n", 19);
+            memset(buff, 0, sizeof(buff));
             bytes_recv = read(sock, &buff[0], sizeof(buff) - 1);
             if (bytes_recv <= 0) break;
             b = atoi(buff); // второй параметр
 
             // Отправляем запрос на операцию
             write(sock, "Enter operation: \"+\", \"-\", \"*\", \"/\"\n", 39);
+            memset(buff, 0, sizeof(buff));
             bytes_recv = read(sock, &buff[0], sizeof(buff) - 1);
             if (bytes_recv <= 0) break;
             char operation = buff[0];
